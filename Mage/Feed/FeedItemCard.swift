@@ -142,7 +142,7 @@ class FeedItemCard : MDCCard {
     }
     
     func getLocationText(feedItem: FeedItem) -> String {
-        return CoordinateDisplay.displayFromCoordinate(coordinate: feedItem.coordinate);
+        return LocationUtilities.displayFromCoordinate(coordinate: feedItem.coordinate);
     }
 }
 
