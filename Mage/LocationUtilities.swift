@@ -48,8 +48,8 @@ extension CLLocationCoordinate2D {
             if let seconds = dms.seconds {
                 coordinateDegrees += Double(seconds) / 3600.0
             }
-            if let decimalSconds = dms.decimalSeconds {
-                coordinateDegrees += (Double("0.\(decimalSconds)") ?? 0) / 3600.0
+            if let decimalSeconds = dms.decimalSeconds, let decimalSecondsDouble = Double("0.\(decimalSeconds)") {
+                coordinateDegrees += decimalSecondsDouble / 3600.0
             }
             if let direction = dms.direction {
                 if direction == "S" || direction == "W" {
@@ -168,10 +168,6 @@ class LocationUtilities: NSObject {
         }
     }
     
-    @objc public static func coordinateFromDMS(latitude: String, longitude: String) -> CLLocationCoordinate2D {
-        return kCLLocationCoordinate2DInvalid
-    }
-    
     // Need to parse the following formats:
     // 1. 112233N 0112244W
     // 2. N 11 ° 22'33 "- W 11 ° 22'33
@@ -201,7 +197,7 @@ class LocationUtilities: NSObject {
             if let _ = direction.wholeNumberValue {
                 
             } else {
-                dmsCoordinate.direction = "\(direction)"
+                dmsCoordinate.direction = "\(direction)".uppercased()
                 coordinateToParse = "\(coordinateToParse.dropLast(1))"
             }
         }
@@ -210,7 +206,7 @@ class LocationUtilities: NSObject {
             if let _ = direction.wholeNumberValue {
                 
             } else {
-                dmsCoordinate.direction = "\(direction)"
+                dmsCoordinate.direction = "\(direction)".uppercased()
                 coordinateToParse = "\(coordinateToParse.dropFirst(1))"
             }
         }
@@ -314,8 +310,16 @@ class LocationUtilities: NSObject {
         if !latitude && (coordinateToParse.count < 5 || coordinateToParse.count > 7) {
             return false
         }
+                
+        var decimalSeconds = 0
         
-        let decimalSeconds = split.count == 2 ? (Int(split[1]) ?? 0) : 0
+        if split.count == 2 {
+            if let decimalSecondsInt = Int(split[1]) {
+                decimalSeconds = decimalSecondsInt
+            } else {
+                return false
+            }
+        }
                 
         let seconds = Int(coordinateToParse.suffix(2))
         coordinateToParse = "\(coordinateToParse.dropLast(2))"
@@ -406,16 +410,24 @@ class LocationUtilities: NSObject {
     }
     
     @objc public static func latitudeDMSString(coordinate: CLLocationDegrees) -> String {
+        let nf = NumberFormatter()
+        nf.roundingMode = .down
+        nf.maximumFractionDigits = 3
+        
         let latDegrees: Int = Int(coordinate)
         let latMinutes = Int(abs((coordinate.truncatingRemainder(dividingBy: 1) * 60.0)))
         let latSeconds = abs(((coordinate.truncatingRemainder(dividingBy: 1) * 60.0).truncatingRemainder(dividingBy: 1) * 60.0))
-        return "\(abs(latDegrees))° \(latMinutes)\' \(String(format: "%.3f", latSeconds))\" \(latDegrees >= 0 ? "N" : "S")"
+        return "\(abs(latDegrees))° \(latMinutes)\' \(nf.string(for: latSeconds) ?? "")\" \(latDegrees >= 0 ? "N" : "S")"
     }
     
     @objc public static func longitudeDMSString(coordinate: CLLocationDegrees) -> String {
+        let nf = NumberFormatter()
+        nf.roundingMode = .down
+        nf.maximumFractionDigits = 3
+        
         let lonDegrees: Int = Int(coordinate)
         let lonMinutes = Int(abs((coordinate.truncatingRemainder(dividingBy: 1) * 60.0)))
         let lonSeconds = abs(((coordinate.truncatingRemainder(dividingBy: 1) * 60.0).truncatingRemainder(dividingBy: 1) * 60.0))
-        return "\(abs(lonDegrees))° \(lonMinutes)\' \(String(format: "%.3f", lonSeconds))\" \(lonDegrees >= 0 ? "E" : "W")"
+        return "\(abs(lonDegrees))° \(lonMinutes)\' \(nf.string(for: lonSeconds) ?? "")\" \(lonDegrees >= 0 ? "E" : "W")"
     }
 }
