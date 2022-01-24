@@ -11,7 +11,7 @@ import MaterialComponents
 import UIKit
 import CoreLocation
 
-@objc protocol CoordinateFieldListener {
+@objc protocol CoordinateFieldDelegate {
     @objc func fieldValueChanged(coordinate: CLLocationDegrees, field: CoordinateField);
 }
 
@@ -27,7 +27,7 @@ import CoreLocation
         return textField;
     }()
     
-    @objc public var enabled: Bool {
+    @objc public var isEnabled: Bool {
         get {
             return textField.isEnabled
         }
@@ -56,6 +56,7 @@ import CoreLocation
             return textField.label.text
         }
         set {
+            textField.accessibilityLabel = newValue
             textField.label.text = newValue
         }
     }
@@ -72,14 +73,15 @@ import CoreLocation
     @objc public var coordinate : CLLocationDegrees = CLLocationDegrees.nan
     var scheme : MDCContainerScheming?
     var latitude : Bool = true
-    var delegate: CoordinateFieldListener?
+    var delegate: CoordinateFieldDelegate?
     @objc public var linkedLongitudeField : CoordinateField?
+    @objc public var linkedLatitudeField : CoordinateField?
     
     required init(coder aDecoder: NSCoder) {
         fatalError("This class does not support NSCoding")
     }
     
-    @objc public init(latitude: Bool = true, text: String? = nil, label: String? = nil, delegate: CoordinateFieldListener? = nil, scheme: MDCContainerScheming? = nil) {
+    @objc public init(latitude: Bool = true, text: String? = nil, label: String? = nil, delegate: CoordinateFieldDelegate? = nil, scheme: MDCContainerScheming? = nil) {
         super.init(frame: CGRect.zero);
         self.scheme = scheme
         self.label = label
@@ -126,7 +128,6 @@ extension CoordinateField: UITextFieldDelegate {
             applyFieldTheme(text: text)
             return true
         }
-        
         return parseAndUpdateText(newText: text, split: string.count > 1, addDirection: string.count > 1)
     }
     
@@ -172,15 +173,25 @@ extension CoordinateField: UITextFieldDelegate {
                 if latitude {
                     text = splitCoordinates[0]
                     if let linkedLongitudeField = linkedLongitudeField {
-                        linkedLongitudeField.text = splitCoordinates[1]
+                        if let text = linkedLongitudeField.text, text.isEmpty {
+                            linkedLongitudeField.text = splitCoordinates[1]
+                        } else if linkedLongitudeField.text == nil {
+                            linkedLongitudeField.text = splitCoordinates[1]
+                        }
                     }
                 } else {
                     text = splitCoordinates[1]
+                    if let linkedLatitudeField = linkedLatitudeField {
+                        if let text = linkedLatitudeField.text, text.isEmpty {
+                            linkedLatitudeField.text = splitCoordinates[0]
+                        } else if linkedLatitudeField.text == nil {
+                            linkedLatitudeField.text = splitCoordinates[0]
+                        }
+                    }
                 }
             } else if splitCoordinates.count == 1 {
                 text = splitCoordinates[0]
             }
-
         }
         
         var parsedDMS: String? = nil

@@ -12,9 +12,9 @@
 #import "GeometryEditMapDelegate.h"
 #import <MaterialComponents/MaterialContainerScheme.h>
 
-@protocol CoordinateFieldListener;
+@protocol CoordinateFieldDelegate;
 
-@interface GeometryEditViewController : UIViewController <AnnotationDragCallback, CoordinateFieldListener>
+@interface GeometryEditViewController : UIViewController <AnnotationDragCallback, CoordinateFieldDelegate>
 
 @property (strong, nonatomic) IBOutlet MKMapView *map;
 @property (nonatomic) BOOL allowsPolygonIntersections;

@@ -122,19 +122,19 @@ class LocationUtilitiesTests: QuickSpec {
                 
                 var coordinates = "112230N"
                 expect(LocationUtilities.parseToDMSString(coordinates)).to(equal("11° 22' 30\" N"))
-                
+
                 coordinates = "112230"
                 expect(LocationUtilities.parseToDMSString(coordinates)).to(equal("11° 22' 30\" "))
-                
+
                 coordinates = "30N"
                 expect(LocationUtilities.parseToDMSString(coordinates)).to(equal("30° N"))
-                
+
                 coordinates = "3030N"
                 expect(LocationUtilities.parseToDMSString(coordinates)).to(equal("30° 30' N"))
 
                 coordinates = "purple"
                 expect(LocationUtilities.parseToDMSString(coordinates)).to(equal("E"))
-                
+
                 coordinates = ""
                 expect(LocationUtilities.parseToDMSString(coordinates)).to(equal(""))
 
@@ -152,7 +152,7 @@ class LocationUtilitiesTests: QuickSpec {
 
                 coordinates = "11° 22'30 N"
                 expect(LocationUtilities.parseToDMSString(coordinates)).to(equal("11° 22' 30\" N"))
-                
+
                 coordinates = "11"
                 expect(LocationUtilities.parseToDMSString(coordinates)).to(equal("11° "))
 
@@ -161,21 +161,24 @@ class LocationUtilitiesTests: QuickSpec {
 
                 coordinates = "-11.4584"
                 expect(LocationUtilities.parseToDMSString(coordinates)).to(equal("11° 27' 30.0\" "))
-                
+
                 coordinates = "11.4584"
                 expect(LocationUtilities.parseToDMSString(coordinates, addDirection: true)).to(equal("11° 27' 30.0\" E"))
-                
+
                 coordinates = "-11.4584"
                 expect(LocationUtilities.parseToDMSString(coordinates, addDirection: true)).to(equal("11° 27' 30.0\" W"))
-                
+
                 coordinates = "11.4584"
                 expect(LocationUtilities.parseToDMSString(coordinates, addDirection: true, latitude: true)).to(equal("11° 27' 30.0\" N"))
-                
+
                 coordinates = "-11.4584"
                 expect(LocationUtilities.parseToDMSString(coordinates, addDirection: true, latitude: true)).to(equal("11° 27' 30.0\" S"))
 
                 coordinates = "0151545W"
                 expect(LocationUtilities.parseToDMSString(coordinates)).to(equal("15° 15' 45\" W"))
+                
+                coordinates = "113000W"
+                expect(LocationUtilities.parseToDMSString(coordinates)).to(equal("11° 30' 00\" W"))
 
                 coordinates = "W 15 ° 15'45"
                 expect(LocationUtilities.parseToDMSString(coordinates)).to(equal("15° 15' 45\" W"))
@@ -191,10 +194,10 @@ class LocationUtilitiesTests: QuickSpec {
 
                 coordinates = "-15.6827"
                 expect(LocationUtilities.parseToDMSString(coordinates)).to(equal("15° 40' 57.0\" "))
-                
+
                 coordinates = "15.6827"
                 expect(LocationUtilities.parseToDMSString(coordinates, addDirection: true)).to(equal("15° 40' 57.0\" E"))
-                
+
                 coordinates = "-15.6827"
                 expect(LocationUtilities.parseToDMSString(coordinates, addDirection: true)).to(equal("15° 40' 57.0\" W"))
             }

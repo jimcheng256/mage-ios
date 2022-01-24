@@ -292,6 +292,7 @@
 		F7467B79209A2DC600EABA63 /* orView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7467B78209A2DC600EABA63 /* orView.xib */; };
 		F7467B7C209A2F0B00EABA63 /* OrView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7467B7B209A2F0B00EABA63 /* OrView.m */; };
 		F7489B35278E29C300A9E314 /* CoordinateField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7489B34278E29C300A9E314 /* CoordinateField.swift */; };
+		F7489B37279A13CE00A9E314 /* CoordinateFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7489B36279A13CE00A9E314 /* CoordinateFieldTests.swift */; };
 		F74A758B1FD5C34A00FF52A5 /* ChangePasswordView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F74A758A1FD5C34A00FF52A5 /* ChangePasswordView.xib */; };
 		F74A758E1FD5CC4500FF52A5 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F74A758D1FD5CC4500FF52A5 /* ChangePasswordViewController.m */; };
 		F74F026025DF0280006BCF23 /* DisplaySettingsHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = F74F025E25DF0280006BCF23 /* DisplaySettingsHeader.m */; };
@@ -979,6 +980,7 @@
 		F7467B7A209A2F0B00EABA63 /* OrView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrView.h; sourceTree = "<group>"; };
 		F7467B7B209A2F0B00EABA63 /* OrView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrView.m; sourceTree = "<group>"; };
 		F7489B34278E29C300A9E314 /* CoordinateField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateField.swift; sourceTree = "<group>"; };
+		F7489B36279A13CE00A9E314 /* CoordinateFieldTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateFieldTests.swift; sourceTree = "<group>"; };
 		F74A758A1FD5C34A00FF52A5 /* ChangePasswordView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChangePasswordView.xib; sourceTree = "<group>"; };
 		F74A758C1FD5CC4500FF52A5 /* ChangePasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
 		F74A758D1FD5CC4500FF52A5 /* ChangePasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
@@ -2512,6 +2514,7 @@
 				F795ECFF24B8BCAC0028FBFC /* MockMageServer.swift */,
 				F795ED0D24B8FDE20028FBFC /* MockMapViewDelegate.swift */,
 				F7521D8E26702C4100C52318 /* PlainMapViewDelegate.swift */,
+				F7489B36279A13CE00A9E314 /* CoordinateFieldTests.swift */,
 			);
 			path = MageTests;
 			sourceTree = SOURCE_ROOT;
@@ -3474,6 +3477,7 @@
 				F7521DE82672317700C52318 /* GeometryEditViewControllerTests.swift in Sources */,
 				F786492E273BFF16002D3DC2 /* LayerTests.swift in Sources */,
 				F7C2A250247960EB0051DAD8 /* ObservationBuilder.swift in Sources */,
+				F7489B37279A13CE00A9E314 /* CoordinateFieldTests.swift in Sources */,
 				F7C641042581504F00C02335 /* MapViewControllerTests.swift in Sources */,
 				F71B7251246B545F00E4CF33 /* GeometryViewTests.swift in Sources */,
 				F71B724E246B1DCC00E4CF33 /* DateViewTests.swift in Sources */,

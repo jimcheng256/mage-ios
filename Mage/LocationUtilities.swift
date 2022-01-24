@@ -378,12 +378,12 @@ class LocationUtilities: NSObject {
         
         var seconds = ""
         if let parsedSeconds = parsed.seconds {
-            seconds = "\(parsedSeconds)"
+            seconds = String(format: "%02d", parsedSeconds)
         }
         
         var minutes = ""
         if let parsedMinutes = parsed.minutes {
-            minutes = "\(parsedMinutes)"
+            minutes = String(format: "%02d", parsedMinutes)
         }
         
         var degrees = ""

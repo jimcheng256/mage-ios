@@ -917,8 +917,8 @@ static float paddingPercentage = .1;
     self.latitudeField.enabled = enabled;
     self.longitudeField.enabled = enabled;
     self.mgrsField.enabled = enabled;
-    self.dmsLatitudeField.enabled = enabled;
-    self.dmsLongitudeField.enabled = enabled;
+    self.dmsLatitudeField.isEnabled = enabled;
+    self.dmsLongitudeField.isEnabled = enabled;
 }
 
 - (void)draggingAnnotationView:(MKAnnotationView *) annotationView atCoordinate: (CLLocationCoordinate2D) coordinate{
