@@ -409,6 +409,7 @@ class LocationUtilities: NSObject {
         return "\(degrees)\(minutes)\(seconds)\(direction)"
     }
     
+    // TODO: update this when non @objc to take an optional and return nil
     @objc public static func latitudeDMSString(coordinate: CLLocationDegrees) -> String {
         let nf = NumberFormatter()
         nf.roundingMode = .down

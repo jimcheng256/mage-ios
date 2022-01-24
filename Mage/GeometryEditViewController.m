@@ -599,8 +599,17 @@ static float paddingPercentage = .1;
     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake([latitude doubleValue], [longitude doubleValue]);
     self.mgrsField.text = [MGRS MGRSfromCoordinate:coordinate];
     
-    self.dmsLatitudeField.text = [LocationUtilities latitudeDMSStringWithCoordinate:coordinate.latitude];
-    self.dmsLongitudeField.text = [LocationUtilities longitudeDMSStringWithCoordinate:coordinate.longitude];
+    if (latitude == nil) {
+        self.dmsLatitudeField.text = nil;
+    } else {
+        self.dmsLatitudeField.text = [LocationUtilities latitudeDMSStringWithCoordinate:coordinate.latitude];
+    }
+    
+    if (longitude == nil) {
+        self.dmsLongitudeField.text = nil;
+    } else {
+        self.dmsLongitudeField.text = [LocationUtilities longitudeDMSStringWithCoordinate:coordinate.longitude];
+    }
 }
 
 - (BOOL) textFieldShouldReturn:(UITextField *) textField {
