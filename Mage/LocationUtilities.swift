@@ -414,21 +414,23 @@ class LocationUtilities: NSObject {
         let nf = NumberFormatter()
         nf.roundingMode = .down
         nf.maximumFractionDigits = 3
+        nf.minimumIntegerDigits = 2
         
         let latDegrees: Int = Int(coordinate)
         let latMinutes = Int(abs((coordinate.truncatingRemainder(dividingBy: 1) * 60.0)))
         let latSeconds = abs(((coordinate.truncatingRemainder(dividingBy: 1) * 60.0).truncatingRemainder(dividingBy: 1) * 60.0))
-        return "\(abs(latDegrees))° \(latMinutes)\' \(nf.string(for: latSeconds) ?? "")\" \(latDegrees >= 0 ? "N" : "S")"
+        return "\(abs(latDegrees))° \(nf.string(for: latMinutes) ?? "")\' \(nf.string(for: latSeconds) ?? "")\" \(latDegrees >= 0 ? "N" : "S")"
     }
     
     @objc public static func longitudeDMSString(coordinate: CLLocationDegrees) -> String {
         let nf = NumberFormatter()
         nf.roundingMode = .down
         nf.maximumFractionDigits = 3
-        
+        nf.minimumIntegerDigits = 2
+
         let lonDegrees: Int = Int(coordinate)
         let lonMinutes = Int(abs((coordinate.truncatingRemainder(dividingBy: 1) * 60.0)))
         let lonSeconds = abs(((coordinate.truncatingRemainder(dividingBy: 1) * 60.0).truncatingRemainder(dividingBy: 1) * 60.0))
-        return "\(abs(lonDegrees))° \(lonMinutes)\' \(nf.string(for: lonSeconds) ?? "")\" \(lonDegrees >= 0 ? "E" : "W")"
+        return "\(abs(lonDegrees))° \(nf.string(for: lonMinutes) ?? "")\' \(nf.string(for: lonSeconds) ?? "")\" \(lonDegrees >= 0 ? "E" : "W")"
     }
 }

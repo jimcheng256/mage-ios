@@ -379,16 +379,19 @@ class LocationUtilitiesTests: QuickSpec {
             
             it("should return a latitude dms string") {
                 var coordinate = CLLocationDegrees(11.1)
-                expect(LocationUtilities.latitudeDMSString(coordinate:coordinate)).to(equal("11° 5' 59.999\" N"))
+                expect(LocationUtilities.latitudeDMSString(coordinate:coordinate)).to(equal("11° 05' 59.999\" N"))
                 coordinate = CLLocationDegrees(-11.1)
-                expect(LocationUtilities.latitudeDMSString(coordinate:coordinate)).to(equal("11° 5' 59.999\" S"))
+                expect(LocationUtilities.latitudeDMSString(coordinate:coordinate)).to(equal("11° 05' 59.999\" S"))
             }
             
             it("should return a longitude dms string") {
                 var coordinate = CLLocationDegrees(11.1)
-                expect(LocationUtilities.longitudeDMSString(coordinate:coordinate)).to(equal("11° 5' 59.999\" E"))
+                expect(LocationUtilities.longitudeDMSString(coordinate:coordinate)).to(equal("11° 05' 59.999\" E"))
                 coordinate = CLLocationDegrees(-11.1)
-                expect(LocationUtilities.longitudeDMSString(coordinate:coordinate)).to(equal("11° 5' 59.999\" W"))
+                expect(LocationUtilities.longitudeDMSString(coordinate:coordinate)).to(equal("11° 05' 59.999\" W"))
+                
+                coordinate = CLLocationDegrees(18.077251)
+                expect(LocationUtilities.longitudeDMSString(coordinate:coordinate)).to(equal("18° 04' 38.103\" E"))
             }
         }
     }
