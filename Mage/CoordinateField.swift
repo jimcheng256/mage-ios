@@ -21,8 +21,6 @@ import CoreLocation
         // this is just an estimated size
         let textField = MDCFilledTextField(frame: CGRect(x: 0, y: 0, width: 200, height: 100));
         textField.delegate = self
-        textField.trailingView = UIImageView(image: UIImage(named: "outline_place"));
-        textField.trailingViewMode = .always;
         textField.sizeToFit()
         return textField;
     }()
