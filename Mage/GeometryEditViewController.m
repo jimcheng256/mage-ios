@@ -255,7 +255,12 @@ static float paddingPercentage = .1;
     dmsTab.accessibilityLabel = @"DMS";
     self.fieldTypeTabs.items = @[latlngTab, mgrsTab, dmsTab];
     self.fieldTypeTabs.preferredLayoutStyle = MDCTabBarViewLayoutStyleFixed;
-    [self.fieldTypeTabs setSelectedItem:latlngTab animated:false];
+    if ([defaults boolForKey:@"showMGRS"]) {
+        [self.fieldTypeTabs setSelectedItem:mgrsTab];
+    } else {
+        [self.fieldTypeTabs setSelectedItem:latlngTab];
+    }
+    
     self.fieldTypeTabs.tabBarDelegate = self;
     [self.view addSubview:self.fieldTypeTabs];
     [self.fieldTypeTabs autoPinEdgesToSuperviewSafeAreaWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeBottom];
@@ -459,6 +464,11 @@ static float paddingPercentage = .1;
     
     [self applyThemeWithContainerScheme:self.scheme];
     [self updateHint];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.slidescroll setContentOffset:CGPointMake(self.fieldTypeTabs.selectedItem.tag * self.slidescroll.frame.size.width, self.slidescroll.contentOffset.y)];
 }
 
 -(MKCoordinateRegion) viewRegionOfMapView: (MKMapView *) mapView forGeometry: (SFGeometry *) geometry {
