@@ -154,6 +154,28 @@ class CoordinateFieldTests: KIFSpec {
                 expect(field.isEditing).to(beFalse())
             }
             
+            it("should paste into the field something with fractional seconds") {
+                let field = CoordinateField(latitude: true, text: "111122.25N", label: "Coordinate", delegate: nil, scheme: MAGEScheme.scheme())
+                view.addSubview(field);
+                field.autoPinEdge(toSuperviewEdge: .left);
+                field.autoPinEdge(toSuperviewEdge: .right);
+                field.autoAlignAxis(toSuperviewAxis: .horizontal);
+                expect(field.isHidden).to(beFalse());
+                expect(field.textField.text).to(equal("11° 11' 22\" N"))
+                expect(field.text).to(equal("11° 11' 22\" N"))
+                tester().waitForView(withAccessibilityLabel: "Coordinate")
+                tester().tapView(withAccessibilityLabel: "Coordinate")
+                expect(field.isEditing).to(beTrue())
+                tester().clearTextFromFirstResponder()
+                expect(field.textField(field.textField, shouldChangeCharactersIn: NSRange(location: 0, length: 0), replacementString: "112233.99N")).to(beFalse())
+                expect(field.textField.text).to(equal("11° 22' 34\" N"))
+                expect(field.text).to(equal("11° 22' 34\" N"))
+                expect(field.textField.label.text).to(equal("Coordinate"))
+                expect(field.textField.accessibilityLabel).to(equal("Coordinate"))
+                field.resignFirstResponder()
+                expect(field.isEditing).to(beFalse())
+            }
+            
             it("should edit the field with negative") {
                 let field = CoordinateField(latitude: true, text: "11N", label: "Coordinate", delegate: nil, scheme: MAGEScheme.scheme())
                 view.addSubview(field);
@@ -166,8 +188,8 @@ class CoordinateFieldTests: KIFSpec {
                 expect(field.isEditing).to(beTrue())
                 tester().clearTextFromFirstResponder()
                 expect(field.textField(field.textField, shouldChangeCharactersIn: NSRange(location: 0, length: 0), replacementString: "-11.5")).to(beFalse())
-                expect(field.textField.text).to(equal("11° 30' 00.0\" S"))
-                expect(field.text).to(equal("11° 30' 00.0\" S"))
+                expect(field.textField.text).to(equal("11° 30' 00\" S"))
+                expect(field.text).to(equal("11° 30' 00\" S"))
                 expect(field.textField.label.text).to(equal("Coordinate"))
                 expect(field.textField.accessibilityLabel).to(equal("Coordinate"))
                 field.resignFirstResponder()

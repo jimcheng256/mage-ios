@@ -121,8 +121,12 @@ extension CoordinateField: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         // allow backspace, decimal point and dash at the begining of the string
         let text = textField.text?.replacingCharacters(in: Range(range, in: textField.text!)!, with: string).uppercased()
+        
+        if "." == string {
+            return false
+        }
 
-        if string.isEmpty || "." == string || ("-" == string && range.length == 0 && range.location == 0) {
+        if string.isEmpty || ("-" == string && range.length == 0 && range.location == 0) {
             applyFieldTheme(text: text)
             return true
         }

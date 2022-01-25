@@ -23,14 +23,17 @@ class LocationUtilitiesTests: QuickSpec {
                 UserDefaults.standard.locationDisplay = .latlng
                 
                 expect(CLLocationCoordinate2D(latitude: 15.48, longitude: 20.47).toDisplay()).to(equal("15.48000, 20.47000"))
-                
+
                 UserDefaults.standard.locationDisplay = .mgrs
                 expect(CLLocationCoordinate2D(latitude: 15.48, longitude: 20.47).toDisplay()).to(equal("34PDC4314911487"))
-                
+
                 UserDefaults.standard.locationDisplay = .dms
-                expect(CLLocationCoordinate2D(latitude: 15.48, longitude: 20.47).toDisplay()).to(equal("15° 28' 48\" N, 20° 28' 11.999\" E"))
-                
-                expect(CLLocationCoordinate2D(latitude: 15.48, longitude: 20.47).toDisplay(short: true)).to(equal("15° 28' 48\" N, 20° 28' 11\" E"))
+                expect(CLLocationCoordinate2D(latitude: 15.48, longitude: 20.47).toDisplay()).to(equal("15° 28' 48\" N, 20° 28' 12\" E"))
+
+                expect(CLLocationCoordinate2D(latitude: 15.48, longitude: 20.47).toDisplay(short: true)).to(equal("15° 28' 48\" N, 20° 28' 12\" E"))
+                UserDefaults.standard.locationDisplay = .dms
+                expect(LocationUtilities.latitudeDMSString(coordinate:11.186388888888889)).to(equal("11° 11' 11\" N"))
+                expect(CLLocationCoordinate2D.parse(coordinates:"111111N, 121212E").toDisplay()).to(equal("11° 11' 11\" N, 12° 12' 12\" E"))
             }
             
             it("should split the coordinate string") {
@@ -86,7 +89,7 @@ class LocationUtilitiesTests: QuickSpec {
                 expect(CLLocationCoordinate2D.parse(coordinate: coordinates)).to(equal(CLLocationDegrees(11.375)))
                 
                 coordinates = "N 11 ° 22'30.36 \""
-                expect(CLLocationCoordinate2D.parse(coordinate: coordinates)).to(equal(CLLocationDegrees(11.3751)))
+                expect(CLLocationCoordinate2D.parse(coordinate: coordinates)).to(equal(CLLocationDegrees(11.375)))
                 
                 coordinates = "N 11 ° 22'30.remove \""
                 expect(CLLocationCoordinate2D.parse(coordinate: coordinates)).to(equal(CLLocationDegrees(11.375)))
@@ -147,8 +150,14 @@ class LocationUtilitiesTests: QuickSpec {
                 expect(LocationUtilities.parseToDMSString(coordinates)).to(equal("11° 22' 30\" N"))
 
                 coordinates = "N 11 ° 22'30.36 \""
-                expect(LocationUtilities.parseToDMSString(coordinates)).to(equal("11° 22' 30.36\" N"))
-
+                expect(LocationUtilities.parseToDMSString(coordinates)).to(equal("11° 22' 30\" N"))
+                
+                coordinates = "112233.99N"
+                expect(LocationUtilities.parseToDMSString(coordinates)).to(equal("11° 22' 34\" N"))
+                
+                coordinates = "11.999999N"
+                expect(LocationUtilities.parseToDMSString(coordinates)).to(equal("12° 00' 00\" N"))
+                
                 coordinates = "N 11 ° 22'30.remove \""
                 expect(LocationUtilities.parseToDMSString(coordinates)).to(equal("11° 22' 30\" N"))
 
@@ -162,26 +171,26 @@ class LocationUtilitiesTests: QuickSpec {
                 expect(LocationUtilities.parseToDMSString(coordinates)).to(equal("11° "))
 
                 coordinates = "11.4584"
-                expect(LocationUtilities.parseToDMSString(coordinates)).to(equal("11° 27' 30.0\" "))
+                expect(LocationUtilities.parseToDMSString(coordinates)).to(equal("11° 27' 30\" "))
 
                 coordinates = "-11.4584"
-                expect(LocationUtilities.parseToDMSString(coordinates)).to(equal("11° 27' 30.0\" "))
+                expect(LocationUtilities.parseToDMSString(coordinates)).to(equal("11° 27' 30\" "))
 
                 coordinates = "11.4584"
-                expect(LocationUtilities.parseToDMSString(coordinates, addDirection: true)).to(equal("11° 27' 30.0\" E"))
+                expect(LocationUtilities.parseToDMSString(coordinates, addDirection: true)).to(equal("11° 27' 30\" E"))
 
                 coordinates = "-11.4584"
-                expect(LocationUtilities.parseToDMSString(coordinates, addDirection: true)).to(equal("11° 27' 30.0\" W"))
+                expect(LocationUtilities.parseToDMSString(coordinates, addDirection: true)).to(equal("11° 27' 30\" W"))
 
                 coordinates = "11.4584"
-                expect(LocationUtilities.parseToDMSString(coordinates, addDirection: true, latitude: true)).to(equal("11° 27' 30.0\" N"))
+                expect(LocationUtilities.parseToDMSString(coordinates, addDirection: true, latitude: true)).to(equal("11° 27' 30\" N"))
 
                 coordinates = "-11.4584"
-                expect(LocationUtilities.parseToDMSString(coordinates, addDirection: true, latitude: true)).to(equal("11° 27' 30.0\" S"))
+                expect(LocationUtilities.parseToDMSString(coordinates, addDirection: true, latitude: true)).to(equal("11° 27' 30\" S"))
 
                 coordinates = "0151545W"
                 expect(LocationUtilities.parseToDMSString(coordinates)).to(equal("15° 15' 45\" W"))
-                
+
                 coordinates = "113000W"
                 expect(LocationUtilities.parseToDMSString(coordinates)).to(equal("11° 30' 00\" W"))
 
@@ -195,16 +204,16 @@ class LocationUtilitiesTests: QuickSpec {
                 expect(LocationUtilities.parseToDMSString(coordinates)).to(equal("15° 15' 45\" W"))
 
                 coordinates = "15.6827"
-                expect(LocationUtilities.parseToDMSString(coordinates)).to(equal("15° 40' 57.0\" "))
+                expect(LocationUtilities.parseToDMSString(coordinates)).to(equal("15° 40' 58\" "))
 
                 coordinates = "-15.6827"
-                expect(LocationUtilities.parseToDMSString(coordinates)).to(equal("15° 40' 57.0\" "))
+                expect(LocationUtilities.parseToDMSString(coordinates)).to(equal("15° 40' 58\" "))
 
                 coordinates = "15.6827"
-                expect(LocationUtilities.parseToDMSString(coordinates, addDirection: true)).to(equal("15° 40' 57.0\" E"))
+                expect(LocationUtilities.parseToDMSString(coordinates, addDirection: true)).to(equal("15° 40' 58\" E"))
 
                 coordinates = "-15.6827"
-                expect(LocationUtilities.parseToDMSString(coordinates, addDirection: true)).to(equal("15° 40' 57.0\" W"))
+                expect(LocationUtilities.parseToDMSString(coordinates, addDirection: true)).to(equal("15° 40' 58\" W"))
             }
             
             it("should split the coordinate string") {
@@ -384,19 +393,19 @@ class LocationUtilitiesTests: QuickSpec {
             
             it("should return a latitude dms string") {
                 var coordinate = CLLocationDegrees(11.1)
-                expect(LocationUtilities.latitudeDMSString(coordinate:coordinate)).to(equal("11° 05' 59.999\" N"))
+                expect(LocationUtilities.latitudeDMSString(coordinate:coordinate)).to(equal("11° 06' 00\" N"))
                 coordinate = CLLocationDegrees(-11.1)
-                expect(LocationUtilities.latitudeDMSString(coordinate:coordinate)).to(equal("11° 05' 59.999\" S"))
+                expect(LocationUtilities.latitudeDMSString(coordinate:coordinate)).to(equal("11° 06' 00\" S"))
             }
             
             it("should return a longitude dms string") {
                 var coordinate = CLLocationDegrees(11.1)
-                expect(LocationUtilities.longitudeDMSString(coordinate:coordinate)).to(equal("11° 05' 59.999\" E"))
+                expect(LocationUtilities.longitudeDMSString(coordinate:coordinate)).to(equal("11° 06' 00\" E"))
                 coordinate = CLLocationDegrees(-11.1)
-                expect(LocationUtilities.longitudeDMSString(coordinate:coordinate)).to(equal("11° 05' 59.999\" W"))
+                expect(LocationUtilities.longitudeDMSString(coordinate:coordinate)).to(equal("11° 06' 00\" W"))
                 
                 coordinate = CLLocationDegrees(18.077251)
-                expect(LocationUtilities.longitudeDMSString(coordinate:coordinate)).to(equal("18° 04' 38.103\" E"))
+                expect(LocationUtilities.longitudeDMSString(coordinate:coordinate)).to(equal("18° 04' 38\" E"))
             }
         }
     }

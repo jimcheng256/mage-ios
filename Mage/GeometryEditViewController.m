@@ -606,13 +606,13 @@ static float paddingPercentage = .1;
     if (latitude == nil) {
         self.dmsLatitudeField.text = nil;
     } else {
-        self.dmsLatitudeField.text = [LocationUtilities latitudeDMSStringWithCoordinate:coordinate.latitude withFractionalSeconds:true];
+        self.dmsLatitudeField.text = [LocationUtilities latitudeDMSStringWithCoordinate:coordinate.latitude];
     }
     
     if (longitude == nil) {
         self.dmsLongitudeField.text = nil;
     } else {
-        self.dmsLongitudeField.text = [LocationUtilities longitudeDMSStringWithCoordinate:coordinate.longitude withFractionalSeconds:true];
+        self.dmsLongitudeField.text = [LocationUtilities longitudeDMSStringWithCoordinate:coordinate.longitude];
     }
 }
 

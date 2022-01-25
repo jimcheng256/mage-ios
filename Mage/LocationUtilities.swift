@@ -14,7 +14,6 @@ struct DMSCoordinate {
     var degrees: Int?
     var minutes: Int?
     var seconds: Int?
-    var decimalSeconds: Int?
     var direction: String?
 }
 
@@ -24,7 +23,7 @@ extension CLLocationCoordinate2D {
         if UserDefaults.standard.locationDisplay == .mgrs {
             return MGRS.mgrSfromCoordinate(self)
         } else if UserDefaults.standard.locationDisplay == .dms {
-            return "\(LocationUtilities.latitudeDMSString(coordinate: self.latitude, withFractionalSeconds: !short)), \(LocationUtilities.longitudeDMSString(coordinate: self.longitude, withFractionalSeconds: !short))"
+            return "\(LocationUtilities.latitudeDMSString(coordinate: self.latitude)), \(LocationUtilities.longitudeDMSString(coordinate: self.longitude))"
         } else {
             return String(format: "%.5f, %.5f", self.latitude, self.longitude)
         }
@@ -57,9 +56,6 @@ extension CLLocationCoordinate2D {
             }
             if let seconds = dms.seconds {
                 coordinateDegrees += Double(seconds) / 3600.0
-            }
-            if let decimalSeconds = dms.decimalSeconds, let decimalSecondsDouble = Double("0.\(decimalSeconds)") {
-                coordinateDegrees += decimalSecondsDouble / 3600.0
             }
             if let direction = dms.direction {
                 if direction == "S" || direction == "W" {
@@ -221,9 +217,7 @@ class LocationUtilities: NSObject {
         let split = coordinateToParse.split(separator: ".")
         
         coordinateToParse = "\(split[0])"
-        if split.count == 2 {
-            dmsCoordinate.decimalSeconds = Int(split[1])
-        }
+        let decimalSeconds = split.count == 2 ? Int(split[1]) : nil
         
         dmsCoordinate.seconds = Int(coordinateToParse.suffix(2))
         coordinateToParse = "\(coordinateToParse.dropLast(2))"
@@ -242,13 +236,25 @@ class LocationUtilities: NSObject {
             }
         }
         
-        if dmsCoordinate.minutes == nil && dmsCoordinate.seconds == nil && dmsCoordinate.decimalSeconds != nil {
+        if dmsCoordinate.minutes == nil && dmsCoordinate.seconds == nil && decimalSeconds != nil {
             // this would be the case if a decimal degrees was passed in ie 11.123
-            let decimal = Double(".\(dmsCoordinate.decimalSeconds ?? 0)") ?? 0.0
+            let decimal = Double(".\(decimalSeconds ?? 0)") ?? 0.0
             dmsCoordinate.minutes = Int(abs((decimal.truncatingRemainder(dividingBy: 1) * 60.0)))
             let seconds = abs(((decimal.truncatingRemainder(dividingBy: 1) * 60.0).truncatingRemainder(dividingBy: 1) * 60.0))
-            dmsCoordinate.seconds = Int(seconds)
-            dmsCoordinate.decimalSeconds = Int(abs(seconds.truncatingRemainder(dividingBy: 1)))
+            dmsCoordinate.seconds = Int(seconds.rounded())
+        } else if let decimalSeconds = decimalSeconds {
+            // add the decimal seconds to seconds and round
+            dmsCoordinate.seconds = Int(Double("\((dmsCoordinate.seconds ?? 0)).\(decimalSeconds)")?.rounded() ?? 0)
+        }
+        
+        if dmsCoordinate.seconds == 60 {
+            dmsCoordinate.minutes = (dmsCoordinate.minutes ?? 0) + 1
+            dmsCoordinate.seconds = 0
+        }
+        
+        if dmsCoordinate.minutes == 60 {
+            dmsCoordinate.degrees = (dmsCoordinate.degrees ?? 0) + 1
+            dmsCoordinate.minutes = 0
         }
         
         return dmsCoordinate
@@ -374,11 +380,6 @@ class LocationUtilities: NSObject {
         
         let direction = parsed.direction ?? ""
         
-        var decimalSeconds = ""
-        if let parsedDecimalSeconds = parsed.decimalSeconds {
-            decimalSeconds = "\(parsedDecimalSeconds)"
-        }
-        
         var seconds = ""
         if let parsedSeconds = parsed.seconds {
             seconds = String(format: "%02d", parsedSeconds)
@@ -401,39 +402,48 @@ class LocationUtilities: NSObject {
             minutes = "\(minutes)\' "
         }
         if !seconds.isEmpty {
-            
-            if !decimalSeconds.isEmpty {
-                seconds = "\(seconds).\(decimalSeconds)\" "
-            } else {
-                seconds = "\(seconds)\" "
-            }
+            seconds = "\(seconds)\" "
         }
         
         return "\(degrees)\(minutes)\(seconds)\(direction)"
     }
     
     // TODO: update this when non @objc to take an optional and return nil
-    @objc public static func latitudeDMSString(coordinate: CLLocationDegrees, withFractionalSeconds: Bool = true) -> String {
+    @objc public static func latitudeDMSString(coordinate: CLLocationDegrees) -> String {
         let nf = NumberFormatter()
-        nf.roundingMode = .down
-        nf.maximumFractionDigits = withFractionalSeconds ? 3 : 0
+        nf.maximumFractionDigits = 0
         nf.minimumIntegerDigits = 2
         
-        let latDegrees: Int = Int(coordinate)
-        let latMinutes = Int(abs((coordinate.truncatingRemainder(dividingBy: 1) * 60.0)))
-        let latSeconds = abs(((coordinate.truncatingRemainder(dividingBy: 1) * 60.0).truncatingRemainder(dividingBy: 1) * 60.0))
+        var latDegrees: Int = Int(coordinate)
+        var latMinutes = Int(abs((coordinate.truncatingRemainder(dividingBy: 1) * 60.0)))
+        var latSeconds = abs(((coordinate.truncatingRemainder(dividingBy: 1) * 60.0).truncatingRemainder(dividingBy: 1) * 60.0)).rounded()
+        if latSeconds == 60 {
+            latSeconds = 0
+            latMinutes += 1
+        }
+        if latMinutes == 60 {
+            latDegrees += 1
+            latMinutes = 0
+        }
         return "\(abs(latDegrees))° \(nf.string(for: latMinutes) ?? "")\' \(nf.string(for: latSeconds) ?? "")\" \(latDegrees >= 0 ? "N" : "S")"
     }
     
-    @objc public static func longitudeDMSString(coordinate: CLLocationDegrees, withFractionalSeconds: Bool = true) -> String {
+    @objc public static func longitudeDMSString(coordinate: CLLocationDegrees) -> String {
         let nf = NumberFormatter()
-        nf.roundingMode = .down
-        nf.maximumFractionDigits = withFractionalSeconds ? 3 : 0
+        nf.maximumFractionDigits = 0
         nf.minimumIntegerDigits = 2
 
-        let lonDegrees: Int = Int(coordinate)
-        let lonMinutes = Int(abs((coordinate.truncatingRemainder(dividingBy: 1) * 60.0)))
-        let lonSeconds = abs(((coordinate.truncatingRemainder(dividingBy: 1) * 60.0).truncatingRemainder(dividingBy: 1) * 60.0))
+        var lonDegrees: Int = Int(coordinate)
+        var lonMinutes = Int(abs((coordinate.truncatingRemainder(dividingBy: 1) * 60.0)))
+        var lonSeconds = abs(((coordinate.truncatingRemainder(dividingBy: 1) * 60.0).truncatingRemainder(dividingBy: 1) * 60.0)).rounded()
+        if lonSeconds == 60 {
+            lonSeconds = 0
+            lonMinutes += 1
+        }
+        if lonMinutes == 60 {
+            lonDegrees += 1
+            lonMinutes = 0
+        }
         return "\(abs(lonDegrees))° \(nf.string(for: lonMinutes) ?? "")\' \(nf.string(for: lonSeconds) ?? "")\" \(lonDegrees >= 0 ? "E" : "W")"
     }
 }
