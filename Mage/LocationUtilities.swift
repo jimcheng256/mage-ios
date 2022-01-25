@@ -20,6 +20,16 @@ struct DMSCoordinate {
 
 extension CLLocationCoordinate2D {
     
+    public func toDisplay(short: Bool = false) -> String {
+        if UserDefaults.standard.locationDisplay == .mgrs {
+            return MGRS.mgrSfromCoordinate(self)
+        } else if UserDefaults.standard.locationDisplay == .dms {
+            return "\(LocationUtilities.latitudeDMSString(coordinate: self.latitude, withFractionalSeconds: !short)), \(LocationUtilities.longitudeDMSString(coordinate: self.longitude, withFractionalSeconds: !short))"
+        } else {
+            return String(format: "%.5f, %.5f", self.latitude, self.longitude)
+        }
+    }
+    
     // takes one coordinate and translates it into a CLLocationDegrees
     // returns nil if nothing can be parsed
     static func parse(coordinate: String?, enforceLatitude: Bool = false) -> CLLocationDegrees? {
@@ -160,14 +170,7 @@ extension CLLocationCoordinate2D {
 }
 
 class LocationUtilities: NSObject {
-    @objc public static func displayFromCoordinate(coordinate: CLLocationCoordinate2D) -> String {
-        if (UserDefaults.standard.showMGRS) {
-            return MGRS.mgrSfromCoordinate(coordinate);
-        } else {
-            return String(format: "%.05f, %.05f", coordinate.latitude, coordinate.longitude);
-        }
-    }
-    
+
     // Need to parse the following formats:
     // 1. 112233N 0112244W
     // 2. N 11 ° 22'33 "- W 11 ° 22'33
@@ -410,10 +413,10 @@ class LocationUtilities: NSObject {
     }
     
     // TODO: update this when non @objc to take an optional and return nil
-    @objc public static func latitudeDMSString(coordinate: CLLocationDegrees) -> String {
+    @objc public static func latitudeDMSString(coordinate: CLLocationDegrees, withFractionalSeconds: Bool = true) -> String {
         let nf = NumberFormatter()
         nf.roundingMode = .down
-        nf.maximumFractionDigits = 3
+        nf.maximumFractionDigits = withFractionalSeconds ? 3 : 0
         nf.minimumIntegerDigits = 2
         
         let latDegrees: Int = Int(coordinate)
@@ -422,10 +425,10 @@ class LocationUtilities: NSObject {
         return "\(abs(latDegrees))° \(nf.string(for: latMinutes) ?? "")\' \(nf.string(for: latSeconds) ?? "")\" \(latDegrees >= 0 ? "N" : "S")"
     }
     
-    @objc public static func longitudeDMSString(coordinate: CLLocationDegrees) -> String {
+    @objc public static func longitudeDMSString(coordinate: CLLocationDegrees, withFractionalSeconds: Bool = true) -> String {
         let nf = NumberFormatter()
         nf.roundingMode = .down
-        nf.maximumFractionDigits = 3
+        nf.maximumFractionDigits = withFractionalSeconds ? 3 : 0
         nf.minimumIntegerDigits = 2
 
         let lonDegrees: Int = Int(coordinate)

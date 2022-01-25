@@ -20,12 +20,17 @@ class LocationUtilitiesTests: QuickSpec {
         describe("LocationUtilitiesTests Tests") {
             
             it("should display the coordinate") {
-                UserDefaults.standard.showMGRS = false
+                UserDefaults.standard.locationDisplay = .latlng
                 
-                expect(LocationUtilities.displayFromCoordinate(coordinate: CLLocationCoordinate2D(latitude: 15.48, longitude: 20.47))).to(equal("15.48000, 20.47000"))
+                expect(CLLocationCoordinate2D(latitude: 15.48, longitude: 20.47).toDisplay()).to(equal("15.48000, 20.47000"))
                 
-                UserDefaults.standard.showMGRS = true
-                expect(LocationUtilities.displayFromCoordinate(coordinate: CLLocationCoordinate2D(latitude: 15.48, longitude: 20.47))).to(equal("34PDC4314911487"))
+                UserDefaults.standard.locationDisplay = .mgrs
+                expect(CLLocationCoordinate2D(latitude: 15.48, longitude: 20.47).toDisplay()).to(equal("34PDC4314911487"))
+                
+                UserDefaults.standard.locationDisplay = .dms
+                expect(CLLocationCoordinate2D(latitude: 15.48, longitude: 20.47).toDisplay()).to(equal("15° 28' 48\" N, 20° 28' 11.999\" E"))
+                
+                expect(CLLocationCoordinate2D(latitude: 15.48, longitude: 20.47).toDisplay(short: true)).to(equal("15° 28' 48\" N, 20° 28' 11\" E"))
             }
             
             it("should split the coordinate string") {

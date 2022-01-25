@@ -255,11 +255,8 @@ static float paddingPercentage = .1;
     dmsTab.accessibilityLabel = @"DMS";
     self.fieldTypeTabs.items = @[latlngTab, mgrsTab, dmsTab];
     self.fieldTypeTabs.preferredLayoutStyle = MDCTabBarViewLayoutStyleFixed;
-    if ([defaults boolForKey:@"showMGRS"]) {
-        [self.fieldTypeTabs setSelectedItem:mgrsTab];
-    } else {
-        [self.fieldTypeTabs setSelectedItem:latlngTab];
-    }
+    NSInteger tabIndex = defaults.locationDisplay;
+    [self.fieldTypeTabs setSelectedItem:[self.fieldTypeTabs.items objectAtIndex:tabIndex]];
     
     self.fieldTypeTabs.tabBarDelegate = self;
     [self.view addSubview:self.fieldTypeTabs];
@@ -418,11 +415,8 @@ static float paddingPercentage = .1;
     [self.longitudeField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     [self.mgrsField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     
-    if ([defaults boolForKey:@"showMGRS"]) {
-        [self.fieldTypeTabs setSelectedItem:[self.fieldTypeTabs.items objectAtIndex:1]];
-    } else {
-        [self.fieldTypeTabs setSelectedItem:[self.fieldTypeTabs.items objectAtIndex:0]];
-    }
+    NSInteger tabIndex = defaults.locationDisplay;
+    [self.fieldTypeTabs setSelectedItem:[self.fieldTypeTabs.items objectAtIndex:tabIndex]];
     
     SFGeometry *geometry = [self.coordinator currentGeometry];
     
@@ -612,13 +606,13 @@ static float paddingPercentage = .1;
     if (latitude == nil) {
         self.dmsLatitudeField.text = nil;
     } else {
-        self.dmsLatitudeField.text = [LocationUtilities latitudeDMSStringWithCoordinate:coordinate.latitude];
+        self.dmsLatitudeField.text = [LocationUtilities latitudeDMSStringWithCoordinate:coordinate.latitude withFractionalSeconds:true];
     }
     
     if (longitude == nil) {
         self.dmsLongitudeField.text = nil;
     } else {
-        self.dmsLongitudeField.text = [LocationUtilities longitudeDMSStringWithCoordinate:coordinate.longitude];
+        self.dmsLongitudeField.text = [LocationUtilities longitudeDMSStringWithCoordinate:coordinate.longitude withFractionalSeconds:true];
     }
 }
 
