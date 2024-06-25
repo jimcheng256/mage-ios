@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="GondolaMage-Regular.otf">
-            <string>GondolaMageRegular</string>
-        </array>
         <array key="fontawesome-webfont.ttf">
             <string>FontAwesome</string>
         </array>
@@ -51,19 +48,19 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sso-gG-3z7">
-                    <rect key="frame" x="16" y="40" width="343" height="55"/>
+                    <rect key="frame" x="16" y="60" width="343" height="55"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cRc-G2-cIA">
-                            <rect key="frame" x="63.5" y="0.0" width="216.5" height="55"/>
+                            <rect key="frame" x="72.5" y="0.0" width="198.5" height="55"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MAGE" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uHb-bD-cFd">
-                                    <rect key="frame" x="55.5" y="0.0" width="161" height="100"/>
-                                    <fontDescription key="fontDescription" name="GondolaMageRegular" family="GondolaMage" pointSize="52"/>
+                                    <rect key="frame" x="55.5" y="0.0" width="143" height="55"/>
+                                    <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="52"/>
                                     <color key="textColor" red="0.066666666669999999" green="0.3294117647" blue="0.64313725489999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="W" textAlignment="natural" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Hf-nf-jvj">
-                                    <rect key="frame" x="0.0" y="0.0" width="47.5" height="55"/>
+                                    <rect key="frame" x="0.0" y="6" width="47.5" height="49"/>
                                     <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="50"/>
                                     <color key="textColor" red="0.066666666669999999" green="0.3294117647" blue="0.64313725489999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
@@ -74,11 +71,11 @@
                                 <constraint firstItem="0Hf-nf-jvj" firstAttribute="leading" secondItem="cRc-G2-cIA" secondAttribute="leading" id="3pG-8y-M46"/>
                                 <constraint firstAttribute="bottom" secondItem="0Hf-nf-jvj" secondAttribute="bottom" id="Eye-Ye-mbL"/>
                                 <constraint firstAttribute="trailing" secondItem="uHb-bD-cFd" secondAttribute="trailing" id="F3F-f1-qSa"/>
-                                <constraint firstItem="0Hf-nf-jvj" firstAttribute="top" secondItem="cRc-G2-cIA" secondAttribute="top" id="Qrx-XJ-HLG"/>
+                                <constraint firstItem="0Hf-nf-jvj" firstAttribute="top" secondItem="cRc-G2-cIA" secondAttribute="top" constant="6" id="Qrx-XJ-HLG"/>
                                 <constraint firstAttribute="height" constant="55" id="Z0p-Gw-Vc4"/>
                                 <constraint firstItem="uHb-bD-cFd" firstAttribute="leading" secondItem="0Hf-nf-jvj" secondAttribute="trailing" constant="8" id="nbi-Bx-7Bm"/>
                                 <constraint firstItem="uHb-bD-cFd" firstAttribute="top" secondItem="cRc-G2-cIA" secondAttribute="top" id="oqZ-VJ-myY"/>
-                                <constraint firstAttribute="bottom" secondItem="uHb-bD-cFd" secondAttribute="bottom" constant="-45" id="qtv-Js-aJm"/>
+                                <constraint firstAttribute="bottom" secondItem="uHb-bD-cFd" secondAttribute="bottom" id="qtv-Js-aJm"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -110,7 +107,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8fH-La-tFM">
-                    <rect key="frame" x="0.0" y="103" width="375" height="715"/>
+                    <rect key="frame" x="0.0" y="123" width="375" height="695"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Ka-Hj-Vpz">
                             <rect key="frame" x="0.0" y="-10" width="375" height="627"/>

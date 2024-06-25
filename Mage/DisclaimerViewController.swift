@@ -51,7 +51,7 @@ import UIKit
     lazy var mageLabel: UILabel = {
         let mageLabel = UILabel(forAutoLayout: ());
         mageLabel.numberOfLines = 0;
-        mageLabel.font = UIFont(name: "GondolaMageRegular", size: 52)
+        mageLabel.font = UIFont(name: "Roboto", size: 52)
         mageLabel.text = "MAGE"
         mageLabel.baselineAdjustment = .alignBaselines
         return mageLabel;
@@ -114,7 +114,7 @@ import UIKit
     public override func updateViewConstraints() {
         if (!didSetupConstraints) {
             wandLabel.autoPinEdgesToSuperviewEdges(with: .zero, excludingEdge: .right)
-            mageLabel.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets(top: 0, left: 0, bottom: -45, right: 0), excludingEdge: .left)
+            mageLabel.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0), excludingEdge: .left)
             mageLabel.autoPinEdge(.left, to: .right, of: wandLabel, withOffset: 8)
             wandLabel.autoAlignAxis(.horizontal, toSameAxisOf: mageLabel)
             wandMageContainer.autoPinEdge(toSuperviewSafeArea: .top, withInset: 40)

@@ -87,9 +87,9 @@
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Roboto-Light.ttf</string>
 		<string>Roboto-Medium.ttf</string>
 		<string>fontawesome-webfont.ttf</string>
-		<string>GondolaMage-Regular.otf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

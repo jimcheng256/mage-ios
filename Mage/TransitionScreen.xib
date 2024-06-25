@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="GondolaMage-Regular.otf">
-            <string>GondolaMageRegular</string>
+        <array key="Roboto-Light.ttf">
+            <string>Roboto-Light</string>
         </array>
         <array key="fontawesome-webfont.ttf">
             <string>FontAwesome</string>
@@ -31,16 +31,16 @@
                     <rect key="frame" x="0.0" y="306" width="375" height="55"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cbi-4e-ZfG">
-                            <rect key="frame" x="79.5" y="0.0" width="216.5" height="55"/>
+                            <rect key="frame" x="85.5" y="0.0" width="204" height="55"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MAGE" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Riw-1D-kSb">
-                                    <rect key="frame" x="55.5" y="0.0" width="161" height="100"/>
-                                    <fontDescription key="fontDescription" name="GondolaMageRegular" family="GondolaMage" pointSize="52"/>
+                                    <rect key="frame" x="55.5" y="0.0" width="148.5" height="55"/>
+                                    <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="54"/>
                                     <color key="textColor" red="0.066666666669999999" green="0.3294117647" blue="0.64313725489999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="W" textAlignment="natural" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Jb-xm-WUP">
-                                    <rect key="frame" x="0.0" y="0.0" width="47.5" height="55"/>
+                                    <rect key="frame" x="0.0" y="6" width="47.5" height="49"/>
                                     <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="50"/>
                                     <color key="textColor" red="0.066666666669999999" green="0.3294117647" blue="0.64313725489999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
@@ -49,12 +49,12 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="6Jb-xm-WUP" firstAttribute="leading" secondItem="cbi-4e-ZfG" secondAttribute="leading" id="CuH-Na-vxm"/>
-                                <constraint firstAttribute="bottom" secondItem="Riw-1D-kSb" secondAttribute="bottom" constant="-45" id="M3r-so-aQJ"/>
+                                <constraint firstAttribute="bottom" secondItem="Riw-1D-kSb" secondAttribute="bottom" id="M3r-so-aQJ"/>
                                 <constraint firstAttribute="bottom" secondItem="6Jb-xm-WUP" secondAttribute="bottom" id="VFr-Me-Bak"/>
                                 <constraint firstItem="Riw-1D-kSb" firstAttribute="leading" secondItem="6Jb-xm-WUP" secondAttribute="trailing" constant="8" id="ZGn-ca-ZXG"/>
                                 <constraint firstAttribute="trailing" secondItem="Riw-1D-kSb" secondAttribute="trailing" id="Zda-6i-O13"/>
                                 <constraint firstAttribute="height" constant="55" id="dnt-lr-ddl"/>
-                                <constraint firstItem="6Jb-xm-WUP" firstAttribute="top" secondItem="cbi-4e-ZfG" secondAttribute="top" id="m4a-DM-gOz"/>
+                                <constraint firstItem="6Jb-xm-WUP" firstAttribute="top" secondItem="cbi-4e-ZfG" secondAttribute="top" constant="6" id="m4a-DM-gOz"/>
                                 <constraint firstItem="Riw-1D-kSb" firstAttribute="top" secondItem="cbi-4e-ZfG" secondAttribute="top" id="mqb-Jr-tgA"/>
                             </constraints>
                         </view>

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="GondolaMage-Regular.otf">
-            <string>GondolaMageRegular</string>
+        <array key="Roboto-Light.ttf">
+            <string>Roboto-Light</string>
         </array>
         <array key="fontawesome-webfont.ttf">
             <string>FontAwesome</string>
@@ -51,10 +51,10 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7jM-R6-Uqf">
-                    <rect key="frame" x="0.0" y="135" width="375" height="474"/>
+                    <rect key="frame" x="0.0" y="155" width="375" height="454"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="zEg-A8-aMM">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="474"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="454"/>
                             <constraints>
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="V0W-aJ-EIZ"/>
                             </constraints>
@@ -70,19 +70,19 @@
                     </constraints>
                 </scrollView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Re4-gS-TLt">
-                    <rect key="frame" x="16" y="40" width="343" height="55"/>
+                    <rect key="frame" x="16" y="60" width="343" height="55"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yw6-zq-kyk">
-                            <rect key="frame" x="63.5" y="0.0" width="216.5" height="55"/>
+                            <rect key="frame" x="72.5" y="0.0" width="198.5" height="55"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MAGE" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AjL-hK-ohz">
-                                    <rect key="frame" x="55.5" y="0.0" width="161" height="100"/>
-                                    <fontDescription key="fontDescription" name="GondolaMageRegular" family="GondolaMage" pointSize="52"/>
+                                    <rect key="frame" x="55.5" y="0.0" width="143" height="55"/>
+                                    <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="52"/>
                                     <color key="textColor" red="0.066666666669999999" green="0.3294117647" blue="0.64313725489999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="W" textAlignment="natural" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yBZ-Db-LW7">
-                                    <rect key="frame" x="0.0" y="0.0" width="47.5" height="55"/>
+                                    <rect key="frame" x="0.0" y="6" width="47.5" height="49"/>
                                     <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="50"/>
                                     <color key="textColor" red="0.066666666669999999" green="0.3294117647" blue="0.64313725489999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
@@ -91,11 +91,11 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="bottom" secondItem="yBZ-Db-LW7" secondAttribute="bottom" id="1ow-w4-9Dc"/>
-                                <constraint firstItem="yBZ-Db-LW7" firstAttribute="top" secondItem="Yw6-zq-kyk" secondAttribute="top" id="54Q-q4-HjH"/>
+                                <constraint firstItem="yBZ-Db-LW7" firstAttribute="top" secondItem="Yw6-zq-kyk" secondAttribute="top" constant="6" id="54Q-q4-HjH"/>
                                 <constraint firstAttribute="trailing" secondItem="AjL-hK-ohz" secondAttribute="trailing" id="GSH-yY-cH5"/>
                                 <constraint firstItem="AjL-hK-ohz" firstAttribute="leading" secondItem="yBZ-Db-LW7" secondAttribute="trailing" constant="8" id="I2S-mH-ioQ"/>
                                 <constraint firstItem="AjL-hK-ohz" firstAttribute="top" secondItem="Yw6-zq-kyk" secondAttribute="top" id="OzJ-G3-mNq"/>
-                                <constraint firstAttribute="bottom" secondItem="AjL-hK-ohz" secondAttribute="bottom" constant="-45" id="aSM-xZ-Zju"/>
+                                <constraint firstAttribute="bottom" secondItem="AjL-hK-ohz" secondAttribute="bottom" id="aSM-xZ-Zju"/>
                                 <constraint firstAttribute="height" constant="55" id="bjI-L6-1EB"/>
                                 <constraint firstItem="yBZ-Db-LW7" firstAttribute="leading" secondItem="Yw6-zq-kyk" secondAttribute="leading" id="tYW-om-fSm"/>
                             </constraints>
