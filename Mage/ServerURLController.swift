@@ -74,9 +74,6 @@ class ServerURLController: UIViewController {
     }()
     
     lazy var mageLabel: UILabel = {
-        
-        print(UIFont.familyNames)
-        
         let mageLabel = UILabel(forAutoLayout: ());
         mageLabel.numberOfLines = 0;
         mageLabel.font = UIFont(name: "Roboto Light", size: 36)
